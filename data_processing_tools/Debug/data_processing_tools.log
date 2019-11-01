@@ -1,0 +1,19 @@
+﻿  AgeRestrictions.cpp
+  AudienceRating.cpp
+  AuthorName.cpp
+  Genre.cpp
+  main.cpp
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\main.cpp(26): warning C4244: инициализация: преобразование "std::streamoff" в "int", возможна потеря данных
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\main.cpp(89): warning C4018: <: несоответствие типов со знаком и без знака
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\main.cpp(243): warning C4018: <: несоответствие типов со знаком и без знака
+  Playbook.cpp
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\playbook.cpp(125): warning C4018: <: несоответствие типов со знаком и без знака
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\playbook.cpp(150): warning C4018: >: несоответствие типов со знаком и без знака
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\playbook.cpp(152): warning C4018: >: несоответствие типов со знаком и без знака
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\playbook.cpp(154): warning C4018: >: несоответствие типов со знаком и без знака
+  Spectacle.cpp
+  SplitString.cpp
+  СompositionName.cpp
+  Создание кода...
+e:\development of structured data processing tools\data_processing_tools\data_processing_tools\spectacle.cpp(167): warning C4172: возвращение адреса локальной или временной переменной : temp
+  data_processing_tools.vcxproj -> E:\Development of structured data processing tools\data_processing_tools\Debug\data_processing_tools.exe
