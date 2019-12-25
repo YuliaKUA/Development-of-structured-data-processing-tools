@@ -6,43 +6,36 @@ using namespace std;
 class AudienceRating : public string
 {
 private:
-	//БНФ
-	//Возвращает true если конец массива
+	// BPF
+	// Returns true if the end of the array
 	bool isEnd(char ** some_str);
 
-	//<Цифра> :: = 0||9
+	//<Digit> :: = 0||9
 	bool isNumer(char ** some_str);
 
-	//<Число> :: = <Цифра>| |<Число>
+	// <Number> :: = <Digit> | | <Number>
 	bool isInteger(char ** some_str);
 
-	//<Оценка зрителей> :: = <целое число> ‘.’ <целое число>
+	// <Viewer rating> :: = <integer> вЂ.вЂ™ <Integer>
 	bool isAudienceRating(char** some_str);
 
-	// Проверяет, что число в диапазоне (0, 10)
+	// Checks that a number in the range (0, 10)
 	bool isCorrectNumber(string some_str);
 
 public:
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 
 	double audienceRating_;
 
-	//Конструктор без параметров
 	AudienceRating();
-	//Деструктор
 	~AudienceRating();
 
-	//Устанавливаем номер текущей строки
 	void setNumberOfLines(int numer);
 
-	//Преобразовать string в массив char 
-	//!!!?
 	bool stringToCharRating(string str);
 
-	//Установить значение поля
 	void setValue(string str);
 
-	//Перегрузка оператора = !!!
 	const AudienceRating &operator = (const AudienceRating &ob);
 	friend AudienceRating operator += (AudienceRating &ob1, AudienceRating &ob2);
 
@@ -50,6 +43,6 @@ public:
 	bool operator < (AudienceRating & ob);
 	bool operator >= (AudienceRating & ob);
 	bool operator == (AudienceRating & ob);
-	//Перегрузка оператора вывода !!!
+	
 	friend ostream& operator << (ostream& out, AudienceRating ob);
 };
