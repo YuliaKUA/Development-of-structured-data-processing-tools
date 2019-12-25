@@ -1,9 +1,7 @@
 #include "Spectacle.h"
 
-//Конструктор для создания нового элемента пьесы
-Spectacle::Spectacle() {}//Обьявление полей прописаны в своих классах
+Spectacle::Spectacle() {}// Declare fields spelled out in their classes
 
-//Конструктор с параметрами
 Spectacle::Spectacle(string compositionName, string authorName,
 	string genre, string audienceRating, string ageRestrictions) {
 
@@ -16,11 +14,9 @@ Spectacle::Spectacle(string compositionName, string authorName,
 	numberOfLines_ = 0;
 }
 
-//Деструктор
 Spectacle::~Spectacle() {
 }
 
-//Конструктор копирования
 Spectacle::Spectacle(const Spectacle & copy) {
 	if (&copy != this) {
 		compositionName_ = copy.compositionName_;
@@ -37,11 +33,11 @@ void Spectacle::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//Устанавливаем значения полей
+// Set the field values
 void Spectacle::setValues(string str) {
-	SplitString ob; //Обьект класса Сплит
+	SplitString ob; 
 	ob.setNumberOfLines(numberOfLines_);
-	ob.split(str); //Функция разбивает строку на элементы и заполняет поля обьекта
+	ob.split(str); // The function breaks the string into elements and fills the fields of the object
 
 	if (ob.isSuccessfulSplit()) {
 		compositionName_.setNumberOfLines(numberOfLines_);
@@ -61,7 +57,7 @@ void Spectacle::setValues(string str) {
 	}
 }
 
-//Функция проверяет корректность данных
+// The function checks the correctness of the data
 bool Spectacle::isDefectiveSpectacle() {
 	if (compositionName_.compositionName_ == "" || authorName_.authorName_ == ""
 		|| genre_.genre_ == "" || audienceRating_.audienceRating_ == -1
@@ -72,9 +68,8 @@ bool Spectacle::isDefectiveSpectacle() {
 		return false;
 }
 
-//Перегрузка оператора =  !!!
 const Spectacle & Spectacle::operator = (const Spectacle & ob) {
-	// проверка на самоприсваивание
+	// check for self-assignment
 	if (&ob == this) return *this;
 	else {
 		compositionName_ = ob.compositionName_;
@@ -106,7 +101,7 @@ Spectacle Spectacle::operator += (const Spectacle & ob) {
 	return *this;
 }
 
-//Перегрузка префиксного инкремента как метод
+// Overload the prefix increment as a method
 Spectacle & Spectacle::operator++() {
 	this->audienceRating_.audienceRating_++;
 	return *this;
@@ -138,14 +133,12 @@ bool operator == (const Spectacle & ob1, const Spectacle & ob2) {
 		return false;
 }
 
-//Перегрузка оператора вывода !!!
 ostream & operator<<(ostream & out, Spectacle ob) {
 	out << ob.compositionName_ << " " << ob.authorName_ << " " << ob.genre_ << " " << ob.audienceRating_
 		<< " " << ob.ageRestrictions_;
 	return out;
 }
 
-//Перегрузка оператора ввода !!!
 istream & operator>>(istream & in, Spectacle & ob) {
 	in >> ob.compositionName_.compositionName_ >> ob.authorName_.authorName_ >>
 		ob.genre_.genre_ >> ob.audienceRating_.audienceRating_ >> ob.ageRestrictions_.ageRestrictions_;
