@@ -12,7 +12,7 @@ bool CompositionName::isEnd(char ** some_str) {
 	return false;
 }
 
-//<Sign> :: = ‘.’ |’,’|’-’|’:’|’;’|’!’|’&’|’?’|’¹’
+//<Sign> :: = ‘.’ |’,’|’-’|’:’|’;’|’!’|’&’|’?’|’№’
 bool CompositionName::isSign(char ** some_str) {
 	if (**some_str == '.' || **some_str == ',' || **some_str == '-' || **some_str == ':'
 		|| **some_str == ';' || **some_str == '!' || **some_str == '&'
@@ -24,7 +24,7 @@ bool CompositionName::isSign(char ** some_str) {
 	return false;
 }
 
-//<Digit> :: = 0||9
+//<Numer> :: = 0||9
 bool CompositionName::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
@@ -33,7 +33,7 @@ bool CompositionName::isNumer(char ** some_str) {
 	return false;
 }
 
-// <Number> :: = <Digit> | | <number>
+// <Integer> :: = <Numer> | | <Integer>
 bool CompositionName::isInteger(char ** some_str) {
 	if (**some_str == ' ') {
 		return true;
@@ -97,10 +97,10 @@ bool CompositionName::isHeadWord(char** some_str) {
 		return false;
 }
 
-// <Offer> :: = <UWord> | <UWord> ‘_’ <Sign> | <UWord> ‘_’ <Sign> ‘_’ <Word>
-// | <UWord> ‘_’ <Word> | <Number> | <Number> ‘_’ <Word> | <Number> ‘_’ <Sign>
+// <Sentence> :: = <UWord> | <UWord> ‘_’ <Sign> | <UWord> ‘_’ <Sign> ‘_’ <Word>
+// | <UWord> ‘_’ <Word> | <Integer> | <Integer> ‘_’ <Word> | <Integer> ‘_’ <Sign>
 
-bool ÑompositionName::isSentence(char ** some_str) {
+bool CompositionName::isSentence(char ** some_str) {
 	if (isInteger(some_str)) {
 		if (**some_str == ' ') {
 			(*some_str)++;
@@ -172,7 +172,7 @@ bool ÑompositionName::isSentence(char ** some_str) {
 
 }
 
-// <Name of the play> :: = ‘" ’<Offer>’ "’ | ‘» ’<Offer>‘ _ ’<Number>’ »’
+// <CompositionName> :: = ‘" ’<Sentence>’ "’ | ‘» ’<Sentence>‘ _ ’<Integer>’ »’
 
 bool CompositionName::isCompositionName(char** some_str) {
 	if (isSentence(some_str)) {
