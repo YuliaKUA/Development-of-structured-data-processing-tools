@@ -4,61 +4,55 @@
 
 using namespace std;
 
-class СompositionName : public string
+class CompositionName : public string
 {
 private:
-	//Возвращает true если конец массива
+	// Returns true if the end of the array
 	bool isEnd(char ** some_str);
 
-	//< Знак > :: = ‘.’ | ’, ’ | ’ - ’ | ’ : ’ | ’; ’ | ’!’ | ’ & ’ | ’ ? ’ | ’№’
+	//<Sign> :: = вЂ.вЂ™ |вЂ™,вЂ™|вЂ™-вЂ™|вЂ™:вЂ™|вЂ™;вЂ™|вЂ™!вЂ™|вЂ™&вЂ™|вЂ™?вЂ™|вЂ™в„–вЂ™
 	bool isSign(char** some_str);
 
-	//<Цифра> :: = 0 || 9
+	//<Numer> :: = 0||9
 	bool isNumer(char** some_str);
 
-	//<Число> :: = <Цифра>| |<Число>
+	// <Integer> :: = <Numer> | | <Integer>
 	bool isInteger(char** some_str);
 
-	//<Заглавная буква> :: = A || Я A || Z
+	// <Uppercase letter> :: = Рђ || РЇ A || Z
 	bool isCapitalLetter(char** some_str);
 
-	//<Буква> :: = а| |я a| |z
+	// <Letter> :: = Р° || СЏ a || z
 	bool isLetter(char** some_str);
 
-	//<Слово> : : = <Буква>| |<Слово>
+	// <Word>:: = <Letter> | | <Word>
 	bool isWord(char** some_str);
 
-	//<ЗСлово> :: = <Заглавная буква> <Слово>
+	// <UWord> :: = <Uppercase letter> <Word>
 	bool isHeadWord(char** some_str);
 
-	//<Предложение> :: = <ЗСлово> | <ЗСлово> ‘_’<Знак> | <ЗСлово> ‘_’<Знак> ‘_’<Слово>
-	//| <ЗСлово>‘_’<Слово>| <Число>| <Число> ‘_’<Слово> | <Число> ‘_’<Знак>
+	// <Offer> :: = <UWord> | <UWord> вЂ_вЂ™ <Sign> | <UWord> вЂ_вЂ™ <Sign> вЂ_вЂ™ <Word>
+	// | <UWord> вЂ_вЂ™ <Word> | <Number> | <Number> вЂ_вЂ™ <Word> | <Number> вЂ_вЂ™ <Sign>
 	bool isSentence(char** some_str);
 
-	//<Название пьесы> :: = ‘»’<Предложение>’»’| ‘»’<Предложение> ‘_’<Число>’»’
+	// <Name of the play> :: = вЂ" вЂ™<Offer>вЂ™ "вЂ™ | вЂВ» вЂ™<Offer>вЂ _ вЂ™<Number>вЂ™ В»вЂ™
 	bool isCompositionName(char** some_str);
 
-	//Преобразовать string в массив char и проверить БНФ
 	bool stringToCharComposition(string str);
 
 public:
 	string compositionName_;
 
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
+	
+	CompositionName();
+	~CompositionName();
 
-	//Конструктор без параметров
-	СompositionName();
-	//Деструктор
-	~СompositionName();
-
-	//Установить значение поля
 	void setValue(string str);
 
-	//Устанавливаем номер текущей строки
+	// Set the current line number
 	void setNumberOfLines(int numer);
 
-	//Перегрузка оператора = !!!
-	const СompositionName &operator = (const СompositionName &ob);
-	//Перегрузка оператора вывода !!!
-	friend ostream& operator << (ostream& out, СompositionName ob);
+	const CompositionName &operator = (const CompositionName &ob);
+	friend ostream& operator << (ostream& out, CompositionName ob);
 };
