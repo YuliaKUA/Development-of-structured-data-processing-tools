@@ -8,10 +8,10 @@ bool Genre::isEnd(char ** some_str) {
 	return false;
 }
 
-//<Буква> :: = а| |я a| |z
+// <Letter> :: = Р° || СЏ a || z
 bool Genre::isLetter(char** some_str) {
 	if ((**some_str >= 'a' && **some_str <= 'z')
-		|| (**some_str >= 'а' && **some_str <= 'я'))
+		|| (**some_str >= 'Г ' && **some_str <= 'Гї'))
 	{
 		(*some_str)++;
 		return true;
@@ -19,7 +19,7 @@ bool Genre::isLetter(char** some_str) {
 	return false;
 }
 
-//<Слово> : : = <Буква>| |<Слово>
+// <Word>:: = <Letter> | | <Word>
 bool Genre::isWord(char** some_str) {
 	if (isLetter(some_str) && **some_str != '-') {
 		isWord(some_str);
@@ -28,7 +28,7 @@ bool Genre::isWord(char** some_str) {
 	return false;
 }
 
-//<Жанр> ::= <Слово> | <Слово> ’-‘ <Слово>
+// <Genre> :: = <Word> | <Word> вЂ™-вЂ <Word>
 bool Genre::isGenre(char** some_str) {
 	if (isWord(some_str)) {
 		if (**some_str == '-') {
@@ -52,22 +52,17 @@ bool Genre::isGenre(char** some_str) {
 
 }
 
-
-//Конструктор без параметров
 Genre::Genre() :
 	genre_(""),
 	numberOfLines_(0) {}
 
-//Деструктор
 Genre::~Genre() {
 }
 
-//Устанавливаем номер текущей строки
 void Genre::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//Преобразовать string в массив char и проверить БНФ
 bool Genre::stringToCharGenre(string str) {
 	int len = str.length() + 1;
 	char *copyStr = new char[len];
@@ -78,15 +73,14 @@ bool Genre::stringToCharGenre(string str) {
 	return isGenre(pCopy);
 }
 
-//Установить значение поля
 void Genre::setValue(string str) {
 	try {
 		if (str.empty())
 			throw ExceptionGenre(numberOfLines_,
-				", пустая строка, жанр не задан");
+				", empty string, genre not defined");
 		else if (!stringToCharGenre(str))
 			throw ExceptionGenre(numberOfLines_,
-				", Неверно задан жанр");
+				", The genre is incorrectly set");
 		else
 			genre_ = str;
 	}
@@ -103,9 +97,8 @@ bool Genre::operator == (Genre & ob) {
 		return false;
 }
 
-//Перегрузка оператора =  !!!
 const Genre & Genre::operator=(const Genre & ob) {
-	// проверка на самоприсваивание
+	// check for self-assignment
 	if (&ob == this) return *this;
 	else {
 		genre_ = ob.genre_;
@@ -113,7 +106,6 @@ const Genre & Genre::operator=(const Genre & ob) {
 	return *this;
 }
 
-//Перегрузка оператора вывода !!!
 ostream & operator<<(ostream & out, Genre ob) {
 	out << ob.genre_;
 	return out;
