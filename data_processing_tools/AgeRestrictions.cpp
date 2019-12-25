@@ -81,10 +81,10 @@ void AgeRestrictions::setValue(string str) {
 	try {
 		if (str.empty())
 			throw ExceptionAgeRestrictions(numberOfLines_,
-				", ïóñòàÿ ñòðîêà, âîçðàñòíûå îãðàíè÷åíèÿ íå çàäàíû");
+				", empty string, no age limit");
 		else if (!stringToCharRestrictions(str))
 			throw ExceptionAgeRestrictions(numberOfLines_,
-				", Íåâåðíî çàäàíû âîçðàñòíûå îãðàíè÷åíèÿ");
+				", Incorrect age limits");
 		else
 			ageRestrictions_ = str;
 	}
@@ -94,7 +94,7 @@ void AgeRestrictions::setValue(string str) {
 }
 
 const AgeRestrictions & AgeRestrictions::operator=(const AgeRestrictions & ob) {
-	// ïðîâåðêà íà ñàìîïðèñâàèâàíèå
+	// check for self-assignment
 	if (&ob == this) return *this;
 	else {
 		ageRestrictions_ = ob.ageRestrictions_;
