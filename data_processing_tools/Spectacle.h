@@ -3,7 +3,7 @@
 #include <string>
 #include "SplitString.h"
 
-#include "СompositionName.h"
+#include "Г‘ompositionName.h"
 #include "AuthorName.h"
 #include "Genre.h"
 #include "AudienceRating.h"
@@ -14,56 +14,49 @@ using namespace std;
 class Spectacle : public string
 {
 public:
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 
-	СompositionName compositionName_;
+	Г‘ompositionName compositionName_;
 	AuthorName authorName_;
 	Genre genre_;
 	AudienceRating audienceRating_;
 	AgeRestrictions ageRestrictions_;
 
-	//Конструктор без параметров
 	Spectacle();
-	//Конструктор с параметрами
 	Spectacle(string compositionName, string authorName, string genre,
 		string audienceRating, string ageRestrictions);
-	//Деструктор
 	~Spectacle();
 
-	//Конструктор копирования
 	Spectacle(const Spectacle & copy);
 
-	//Устанавливаем номер текущей строки
+	// Set the current line number
 	void setNumberOfLines(int numer);
 
-	//Устанавливаем значения полей
+	// Set the field values
 	void setValues(string str);
 
-	//Функция проверяет корректность данных
+	// The function checks the correctness of the data
 	bool isDefectiveSpectacle();
 
-	//Перегрузка оператора =  !!!
 	const Spectacle & operator = (const Spectacle & ob);
 
-	//Перегрузка операторов отношений
+	// Overload relationship operators
 	bool operator > (Spectacle &ob);
 	bool operator < (Spectacle &ob);
 	friend bool operator <= (const Spectacle &ob1, const Spectacle &ob2);
 	friend bool operator == (const Spectacle &ob1, const Spectacle &ob2);
 
-	//Перегрузка оператора вывода !!!
 	friend ostream& operator << (ostream& out, Spectacle ob);
-	//Перегрузка оператора ввода !!!
 	friend istream& operator >> (istream& in, Spectacle &ob);
 
-	//Перегрузка бинарных операций как метод и как друж функц
+	// Overloading binary operations as a method and as friendly functions
 	friend Spectacle operator += (const Spectacle &ob1, const Spectacle &ob2);
 	Spectacle operator += (const Spectacle &ob);
 
-	//Перегрузка префиксного инкремента как метод
+	// Overload the prefix increment as a method
 	Spectacle &operator ++();
 
-	//Перегрузка постфиксного инкремента как друж функц
+	// Overload postfix increment as friendly functions
 	//Spectacle &operator ++( int value);
 	friend Spectacle &operator ++(Spectacle& ob, int);
 };
