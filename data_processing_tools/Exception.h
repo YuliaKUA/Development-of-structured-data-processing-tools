@@ -7,7 +7,7 @@ class Exception : public exception
 public:
 	int numberOfLines_;
 	const char * msg_;
-	const char * msg2_ = "Îøèáêà â ñòðîêå ¹ ";
+	const char * msg2_ = "Error in line â„– ";
 
 	Exception(int numberOfLines, const char * msg) {
 		this->numberOfLines_ = numberOfLines;
