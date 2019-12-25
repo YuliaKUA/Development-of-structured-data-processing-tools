@@ -10,10 +10,10 @@ private:
 	// <Sign> :: = ‘+’
 	bool isSign(char ** some_str);
 
-	// <Digit> :: = 0 || 9
+	// <Numer> :: = 0 || 9
 	bool isNumer(char ** some_str);
 
-	// <Integer> :: = <Digit> | | <number>
+	// <Integer> :: = <Numer> | | <Integer>
 	bool isInteger(char ** some_str);
 
 	// <Age restrictions> :: = <Integer> ’_’ <Sign>
