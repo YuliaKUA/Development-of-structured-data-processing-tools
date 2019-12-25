@@ -1,24 +1,22 @@
 #include "AuthorName.h"
 #include "Exception.h"
 
-//Конструктор без параметров
 AuthorName::AuthorName() :
 	authorName_(""),
 	numberOfLines_(0) {}
 
-//Деструктор
 AuthorName::~AuthorName() {
 }
-//Устанавливаем номер текущей строки
+
 void AuthorName::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//БНФ
-//<Буква> :: = а| |я a| |z
+// BPF
+// <Letter> :: = Р° || Р± a || z
 bool AuthorName::isLetter(char** some_str) {
 	if ((**some_str >= 'a' && **some_str <= 'z')
-		|| (**some_str >= 'а' && **some_str <= 'я'))
+		|| (**some_str >= 'Г ' && **some_str <= 'Гї'))
 	{
 		(*some_str)++;
 		return true;
@@ -26,9 +24,9 @@ bool AuthorName::isLetter(char** some_str) {
 	return false;
 }
 
-//<Заглавная буква> :: = A || Я A || Z
+// <Uppercase letter> :: = Рђ || РЇ A || Z
 bool AuthorName::isCapitalLetter(char** some_str) {
-	if ((**some_str >= 'А' && **some_str <= 'Я')
+	if ((**some_str >= 'ГЂ' && **some_str <= 'Гџ')
 		|| (**some_str >= 'A' && **some_str <= 'Z'))
 	{
 		(*some_str)++;
@@ -38,7 +36,7 @@ bool AuthorName::isCapitalLetter(char** some_str) {
 
 }
 
-//<Слово> : : = <Буква>| |<Слово>
+// <Word>:: = <Letter> | | <Word>
 bool AuthorName::isWord(char** some_str) {
 	if (isLetter(some_str)) {
 		isWord(some_str);
@@ -47,7 +45,7 @@ bool AuthorName::isWord(char** some_str) {
 	return false;
 }
 
-//<ЗСлово> :: = <Заглавная буква> <Слово>
+// <UWord> :: = <Uppercase letter> <Word>
 bool AuthorName::isHeadWord(char** some_str) {
 	if (isCapitalLetter(some_str)) {
 		if (**some_str != NULL && **some_str != '_' && **some_str != '-')
@@ -59,7 +57,7 @@ bool AuthorName::isHeadWord(char** some_str) {
 		return false;
 }
 
-//<Фамилия> :: = <ЗСлово>| <ЗСлово>’-’<ЗСлово>
+// <Surname> :: = <UWord> | <UWord> вЂ™-вЂ™ <UWord>
 bool AuthorName::isSername(char** some_str) {
 	if (isHeadWord(some_str)) {
 		if (**some_str == '-') {
@@ -76,8 +74,8 @@ bool AuthorName::isSername(char** some_str) {
 		return false;
 }
 
-//<ФИО> :: = <Фамилия> ‘_’<Заглавная буква>’.’<Заглавная буква>’.’
-//| <Фамилия> ‘_’<Заглавная буква>’.'
+// <FULL NAME> :: = <Surname> вЂ_вЂ™ <Uppercase letter> вЂ™.вЂ™ <Uppercase letter> вЂ™.вЂ™
+// | <Surname> вЂ_вЂ™ <Uppercase letter> вЂ™. '
 bool AuthorName::isAuthorName(char** some_str) {
 	if (isSername(some_str)) {
 		if (**some_str == '_') {
@@ -114,7 +112,6 @@ bool AuthorName::isAuthorName(char** some_str) {
 		return false;
 }
 
-//Преобразовать string в массив char и проверить БНФ
 bool AuthorName::stringToCharName(string str) {
 	int len = str.length() + 1;
 	char *copyStr = new char[len];
@@ -125,15 +122,14 @@ bool AuthorName::stringToCharName(string str) {
 	return isAuthorName(pCopy);
 }
 
-//Установить значение поля
 void AuthorName::setValue(string str) {
 	try {
 		if (str.empty())
 			throw ExceptionAuthorName(numberOfLines_,
-				", пустая строка, имя автора не задано");
+				", ГЇГіГ±ГІГ Гї Г±ГІГ°Г®ГЄГ , ГЁГ¬Гї Г ГўГІГ®Г°Г  Г­ГҐ Г§Г Г¤Г Г­Г®");
 		else if (!stringToCharName(str))
 			throw ExceptionAuthorName(numberOfLines_,
-				", Неверно задано имя автора");
+				", ГЌГҐГўГҐГ°Г­Г® Г§Г Г¤Г Г­Г® ГЁГ¬Гї Г ГўГІГ®Г°Г ");
 		else
 			authorName_ = str;
 	}
@@ -142,9 +138,8 @@ void AuthorName::setValue(string str) {
 	}
 }
 
-//Перегрузка оператора =  !!!
 const AuthorName & AuthorName::operator=(const AuthorName & ob) {
-	// проверка на самоприсваивание
+	// check for self-assignment
 	if (&ob == this) return *this;
 	else {
 		authorName_ = ob.authorName_;
@@ -152,7 +147,6 @@ const AuthorName & AuthorName::operator=(const AuthorName & ob) {
 	return *this;
 }
 
-//Перегрузка оператора вывода !!!
 ostream & operator<<(ostream & out, AuthorName ob) {
 	out << ob.authorName_;
 	return out;
