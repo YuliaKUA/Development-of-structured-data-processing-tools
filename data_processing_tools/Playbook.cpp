@@ -2,7 +2,6 @@
 #include "Spectacle.h"
 #include "Exception.h"
 
-////Конструктор без параметров
 Playbook::Playbook() :
 	count_(0),
 	numberOfLines_(0),
@@ -13,11 +12,10 @@ Playbook::Playbook() :
 	maxAud_(7),
 	maxAge_(11) {}
 
-//Деструктор
 Playbook::~Playbook()
 {}
 
-//Функция, добавляющая пьесу в массив
+// Function Adds The Piece To The Array
 void Playbook::addSpectacle(string str) {
 	numberOfLines_++;
 
@@ -32,19 +30,19 @@ void Playbook::addSpectacle(string str) {
 		}
 		else
 			throw ExceptionPlaybook(numberOfLines_,
-				", некорректные данные для добавления спектакля в афишу");
+				", incorrect data for adding the play to the poster");
 	}
 	catch (ExceptionPlaybook &ex) {
 		cerr << ex.getMsgLines() << ex.getNumberOfLines() << ex.getErrorMsg() << endl << endl;
 	}
 }
 
-//Функция возвращающая номер текущей строки
+// Function returning the current line number
 int Playbook::getNumberStr() {
 	return numberOfLines_;
 }
 
-//Функция проверяющая отсортирован ли массив
+// Function checking if the array is sorted
 bool isSort(vector <Spectacle> vec) {
 	int len = vec.size();
 	for (int i = 0; i < len - 1; i++) {
@@ -55,19 +53,19 @@ bool isSort(vector <Spectacle> vec) {
 	return true;
 }
 
-//Функция сортировки по убыванию зрительских оценок по методу вставок
+// Function for sorting descending viewer ratings using the insert method
 void Playbook::insertSort() {
 	try {
 		if (count_ > 0) {
-			if (!isSort(playbook_)) { //Проверяем отсортирован ли массив
-				Spectacle temp; // временная переменная для хранения значения элемента сортируемого массива
-				int item; // индекс предыдущего элемента
+			if (!isSort(playbook_)) { // Check if the array is sorted
+				Spectacle temp; // temporary variable to store the value of the element of the sorted array
+				int item; // index of the previous element
 				int len = playbook_.size();
 				for (int i = 1; i < len; i++) {
-					temp = playbook_[i]; // инициализируем временную переменную текущим значением элемента массива
-					item = i - 1; // запоминаем индекс предыдущего элемента массива
-					while (item >= 0 && playbook_[item] < temp) { // пока индекс не равен 0 и предыдущий элемент массива меньше текущего
-						playbook_[item + 1] = playbook_[item]; // перестановка элементов массива
+					temp = playbook_[i]; // initialize the temporary variable with the current value of the array element
+					item = i - 1; // remember the index of the previous element of the array
+					while (item >= 0 && playbook_[item] < temp) { // while the index is not 0 and the previous element of the array is less than the current
+						playbook_[item + 1] = playbook_[item]; // rearrange array elements
 						playbook_[item] = temp;
 						item--;
 					}
@@ -75,14 +73,14 @@ void Playbook::insertSort() {
 			}
 		}
 		else
-			throw ExceptionPlaybook("Ошибка, нет пьес для сортировки");
+			throw ExceptionPlaybook("Error, no pieces to sort");
 	}
 	catch (ExceptionPlaybook &ex) {
 		cerr << ex.what() << endl;
 	}
 }
 
-//Функция записывающая самую популярную пьесу\ы в вектор
+// Function that writes the most popular play \ 's to the vector
 void Playbook::mostPopular() {
 	if (!isSort(playbook_)) {
 		insertSort();
@@ -98,15 +96,15 @@ void Playbook::mostPopular() {
 			}
 		}
 		else
-			ExceptionPlaybook("Ошибка, нет пьес для выбора самой популярной");
+			ExceptionPlaybook("Error, there are no plays to choose the most popular");
 	}
 	catch (ExceptionPlaybook &ex) {
 		cerr << ex.what() << endl;
 	}
 }
 
-//Функция записывающая список жанров пьес и зрительских оценок
-// в вектор
+// Function recording a list of genres of plays and audience ratings
+// to vector
 void Playbook::genreList() {
 	try {
 		if (count_ > 0) {
@@ -136,14 +134,14 @@ void Playbook::genreList() {
 			}
 		}
 		else
-			ExceptionPlaybook("Ошибка, нет пьес для вывода жанров");
+			ExceptionPlaybook("Error, there are no plays for the conclusion of genres");
 	}
 	catch (ExceptionPlaybook &ex) {
 		cerr << ex.what() << endl;
 	}
 }
 
-//Функция определяет максимальную длину каждого поля
+// The function determines the maximum length of each field
 void Playbook::setMaxLength() {
 	if (count_ > 0) {
 		for (int i = 0; i < count_; i++) {
