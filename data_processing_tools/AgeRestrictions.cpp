@@ -11,7 +11,7 @@ bool AgeRestrictions::isSign(char ** some_str) {
 	return false;
 }
 
-//<Digit> :: = 0 || 9
+//<Numer> :: = 0 || 9
 bool AgeRestrictions::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
@@ -20,7 +20,7 @@ bool AgeRestrictions::isNumer(char ** some_str) {
 	return false;
 }
 
-// <Integer> :: = <Digit> | | <number>
+// <Integer> :: = <Numer> | | <Integer>
 bool AgeRestrictions::isInteger(char ** some_str) {
 	if (isNumer(some_str)) {
 		if (**some_str == '_')
