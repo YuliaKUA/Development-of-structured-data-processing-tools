@@ -8,38 +8,31 @@ class Genre : public string
 private:
 	bool isEnd(char ** some_str);
 
-	//<Буква> :: = а| |я a| |z
+	// <Letter> :: = Р° || Р± a || z
 	bool isLetter(char** some_str);
 
-	//<Слово> : : = <Буква>| |<Слово>
+	// <Word>:: = <Letter> | | <Word>
 	bool isWord(char** some_str);
 
-	//<Жанр> ::= <Слово> | <Слово> ’-‘ <Слово>
+	// <Genre> :: = <Word> | <Word> вЂ™-вЂ <Word>
 	bool isGenre(char ** some_str);
 
 public:
 	string genre_;
 
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 
-	//Конструктор
 	Genre();
-	//Деструктор
 	~Genre();
 
-	//Устанавливаем номер текущей строки
 	void setNumberOfLines(int numer);
 
-	//Установить значение поля
 	void setValue(string str);
 
-	//Преобразовать string в массив char 
 	bool stringToCharGenre(string str);
 
 
 	bool operator == (Genre &ob);
-	//Перегрузка оператора = !!!
 	const Genre &operator = (const Genre &ob);
-	//Перегрузка оператора вывода !!!
 	friend ostream& operator << (ostream& out, Genre ob);
 };
