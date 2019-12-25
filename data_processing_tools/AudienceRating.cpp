@@ -11,7 +11,7 @@ bool AudienceRating::isEnd(char ** some_str) {
 	return false;
 }
 
-// <Digit> :: = 0 || 9
+// <Numer> :: = 0 || 9
 bool AudienceRating::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
@@ -20,7 +20,7 @@ bool AudienceRating::isNumer(char ** some_str) {
 	return false;
 }
 
-// <Number> :: = <Digit> | | <Number>
+// <Integer> :: = <Numer> | | <Integer>
 bool AudienceRating::isInteger(char ** some_str) {
 	if (**some_str != ',' && isNumer(some_str)) {
 		isInteger(some_str);
@@ -29,7 +29,7 @@ bool AudienceRating::isInteger(char ** some_str) {
 	return false;
 }
 
-// <Viewer rating> :: = <integer> ‘.’ <Integer>
+// <Viewer rating> :: = <Integer> ‘.’ <Integer>
 bool AudienceRating::isAudienceRating(char** some_str) {
 	if (isInteger(some_str)) {
 		if (**some_str == ',') {
