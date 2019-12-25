@@ -10,13 +10,13 @@ private:
 	// Returns true if the end of the array
 	bool isEnd(char ** some_str);
 
-	//<Digit> :: = 0||9
+	//<Numer> :: = 0||9
 	bool isNumer(char ** some_str);
 
-	// <Number> :: = <Digit> | | <Number>
+	// <Integer> :: = <Numer> | | <Integer>
 	bool isInteger(char ** some_str);
 
-	// <Viewer rating> :: = <integer> ‘.’ <Integer>
+	// <Viewer rating> :: = <Integer> ‘.’ <Integer>
 	bool isAudienceRating(char** some_str);
 
 	// Checks that a number in the range (0, 10)
