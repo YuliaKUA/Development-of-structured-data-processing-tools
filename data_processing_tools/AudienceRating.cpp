@@ -89,15 +89,15 @@ void AudienceRating::setValue(string str) {
 	try {
 		if (str.empty())
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", ïóñòàÿ ñòðîêà, ðåéòèíã íå çàäàí");
+				", empty string, no rating set");
 		else if (!stringToCharRating(str))
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", Íåâåðíî çàäàí ðåéòèíã");
+				", Invalid rating");
 		else if (isCorrectNumber(str))
 			audienceRating_ = atof(str.c_str());
 		else
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", ðåéòèíã äîëæåí áûòü â äèàïàçîíå (0,0; 10,0)");
+				", the rating should be in the range (0,0; 10,0)");
 	}
 	catch (ExceptionAudienceRating &ex) {
 		cerr << ex.getMsgLines() << ex.getNumberOfLines() << ex.getErrorMsg() << endl;
