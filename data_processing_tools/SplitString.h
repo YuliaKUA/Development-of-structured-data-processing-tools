@@ -1,15 +1,15 @@
-// Только разбивает строку и устанавливает значения своих полей без проверки
+// Only breaks the string and sets the values of its fields without checking
 #pragma once 
 #include <iostream>
 #include <string>
-#include "СompositionName.h"
+#include "Г‘ompositionName.h"
 
 using namespace std;
 
 class SplitString
 {
 public:
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 	bool successfulFlag_;
 
 	string compositionName_;
@@ -18,17 +18,15 @@ public:
 	string audienceRating_;
 	string ageRestrictions_;
 
-	//Конструктор без параметров
 	SplitString();
-	//Деструктор
 	~SplitString();
 
-	//Устанавливаем номер текущей строки
+	// Set the current line number
 	void setNumberOfLines(int numer);
 
-	//Функция проверяет количество данных в строке
+	// The function checks the amount of data in a row
 	bool amountOfData(string some_str);
-	//Функция разбивает строку на элементы
+	// The function breaks the string into elements
 	void split(string some_str);
 
 	bool isSuccessfulSplit();
