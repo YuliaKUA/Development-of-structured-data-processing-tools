@@ -1,9 +1,9 @@
 #include "AudienceRating.h"
 #include "Exception.h"
 
-//БНФ оценка зрителей
+// BPF rating of viewers
 
-//Возвращает true если конец массива
+// Returns true if the end of the array
 bool AudienceRating::isEnd(char ** some_str) {
 	if (**some_str == '\0') {
 		return true;
@@ -11,7 +11,7 @@ bool AudienceRating::isEnd(char ** some_str) {
 	return false;
 }
 
-//<Цифра> :: = 0||9
+// <Digit> :: = 0 || 9
 bool AudienceRating::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
@@ -20,7 +20,7 @@ bool AudienceRating::isNumer(char ** some_str) {
 	return false;
 }
 
-//<Число> :: = <Цифра>| |<Число>
+// <Number> :: = <Digit> | | <Number>
 bool AudienceRating::isInteger(char ** some_str) {
 	if (**some_str != ',' && isNumer(some_str)) {
 		isInteger(some_str);
@@ -29,7 +29,7 @@ bool AudienceRating::isInteger(char ** some_str) {
 	return false;
 }
 
-//<Оценка зрителей> :: = <целое число> ‘.’ <целое число>
+// <Viewer rating> :: = <integer> вЂ.вЂ™ <Integer>
 bool AudienceRating::isAudienceRating(char** some_str) {
 	if (isInteger(some_str)) {
 		if (**some_str == ',') {
@@ -51,7 +51,7 @@ bool AudienceRating::isAudienceRating(char** some_str) {
 		return false;
 }
 
-// Проверяет, что число в диапазоне (0, 10)
+// Checks that a number in the range (0, 10)
 bool AudienceRating::isCorrectNumber(string some_str) {
 	double tmp = atof(some_str.c_str());
 	if (tmp >= 0.0 && tmp <= 10.0) {
@@ -61,22 +61,18 @@ bool AudienceRating::isCorrectNumber(string some_str) {
 		return false;
 }
 
-//Конструктор без параметров
 AudienceRating::AudienceRating() :
 	audienceRating_(-1),
 	numberOfLines_(0) {}
 
-//Деструктор
 AudienceRating::~AudienceRating() {
 }
 
-//Устанавливаем номер текущей строки
+// Set the current line number
 void AudienceRating::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//Преобразовать string в массив char и проверить БНФ
-//!!!?
 bool AudienceRating::stringToCharRating(string str) {
 	int len = str.length() + 1;
 	char *copyStr = new char[len];
@@ -87,30 +83,29 @@ bool AudienceRating::stringToCharRating(string str) {
 	return isAudienceRating(pCopy);
 }
 
-//!!? вывод строки
-//Установить значение поля
+// line output
+// Set the field value
 void AudienceRating::setValue(string str) {
 	try {
 		if (str.empty())
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", пустая строка, рейтинг не задан");
+				", ГЇГіГ±ГІГ Гї Г±ГІГ°Г®ГЄГ , Г°ГҐГ©ГІГЁГ­ГЈ Г­ГҐ Г§Г Г¤Г Г­");
 		else if (!stringToCharRating(str))
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", Неверно задан рейтинг");
+				", ГЌГҐГўГҐГ°Г­Г® Г§Г Г¤Г Г­ Г°ГҐГ©ГІГЁГ­ГЈ");
 		else if (isCorrectNumber(str))
 			audienceRating_ = atof(str.c_str());
 		else
 			throw  ExceptionAudienceRating(numberOfLines_,
-				", рейтинг должен быть в диапазоне (0,0; 10,0)");
+				", Г°ГҐГ©ГІГЁГ­ГЈ Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Гў Г¤ГЁГ ГЇГ Г§Г®Г­ГҐ (0,0; 10,0)");
 	}
 	catch (ExceptionAudienceRating &ex) {
 		cerr << ex.getMsgLines() << ex.getNumberOfLines() << ex.getErrorMsg() << endl;
 	}
 }
 
-//Перегрузка оператора = !!!
 const AudienceRating & AudienceRating::operator=(const AudienceRating & ob) {
-	// проверка на самоприсваивание
+	// check for self-assignment
 	if (&ob == this) return *this;
 	else {
 		audienceRating_ = ob.audienceRating_;
@@ -151,7 +146,6 @@ AudienceRating operator+=(AudienceRating & ob1, AudienceRating & ob2) {
 	return ob1;
 }
 
-//Перегрузка оператора вывода !!!
 ostream & operator<<(ostream & out, AudienceRating ob) {
 	if (!fmod(ob.audienceRating_, 1) == 0) {
 		out << ob.audienceRating_;
