@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 
-//Конструктор без параметров
 SplitString::SplitString() :
 	compositionName_(""),
 	authorName_(""),
@@ -14,17 +13,16 @@ SplitString::SplitString() :
 	successfulFlag_(1),
 	numberOfLines_(0) {}
 
-//Деструктор
 SplitString::~SplitString() {
 }
 
-//Устанавливаем номер текущей строки
+// Set the current line number
 void SplitString::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//Функция проверяет количество данных в строке
-//Строка должна содержать 5 слов разделенных 4 пробелами
+// The function checks the amount of data in a row
+// The string should contain 5 words separated by 4 spaces
 bool SplitString::amountOfData(string some_str) {
 	try {
 		some_str += " ";
@@ -33,7 +31,7 @@ bool SplitString::amountOfData(string some_str) {
 
 		if (some_str[0] != '"') {
 			throw ExceptionSplitString(numberOfLines_,
-				", название композиции должно быть задано в кавычках, разбиение строки невозможно");
+				", the name of the composition must be given in quotation marks, line breaking is not possible");
 		}
 
 		int count = 0;
@@ -44,7 +42,7 @@ bool SplitString::amountOfData(string some_str) {
 
 		if (some_str[0] == '"' && pos < 0)
 			throw ExceptionSplitString(numberOfLines_,
-				", не найдена 2 кавычка у названия, разбиение строки невозможно");
+				", 2 quotation marks not found, no line break possible");
 
 		while (pos > -1) {
 			tmp.assign(some_str, begin, pos);
@@ -67,24 +65,24 @@ bool SplitString::amountOfData(string some_str) {
 	}
 }
 
-//Функция разбивает строку на элементы
+// The function breaks the string into elements
 void SplitString::split(string some_str) {
-	// в каждое поле копируем часть строки, разделенной пробелами
+	// in each field, copy part of the string, separated by spaces
 	try {
 		if (!amountOfData(some_str)) {
 			successfulFlag_ = 0;
 			throw ExceptionSplitString(numberOfLines_,
-				", некорректное количество данных для разбиения строки");
+				", invalid amount of data to split line");
 		}
 		else {
 			string tmp;
 			if (some_str[0] == '"') {
-				int begin = 1; //начало слова
-				int end = some_str.find('"', begin); //конец слова
+				int begin = 1; // start of word
+				int end = some_str.find('"', begin); // end of word
 
 				if (end != -1) {
 
-					//Выделяем название пьесы
+					// Select the name of the play
 					tmp.assign(some_str, 0, end + 1);
 					compositionName_ = tmp;
 					tmp.clear();
@@ -95,13 +93,13 @@ void SplitString::split(string some_str) {
 						end = some_str.find(' ', begin);
 
 						tmp.assign(some_str, begin, end - begin);
-						if (i == 2) //Выделяем имя автора
+						if (i == 2) // Select the name of the author
 							authorName_ = tmp;
-						else if (i == 3) //Выделяем жанр пьесы
+						else if (i == 3) // Select the genre of the play
 							genre_ = tmp;
-						else if (i == 4) //Выделяем зрительскую оценку
+						else if (i == 4) // Highlight the audience rating
 							audienceRating_ = tmp;
-						else if (i == 5) //Выделяем возрастные ограничения
+						else if (i == 5) // Select age limits
 							ageRestrictions_ = tmp;
 						tmp.clear();
 					}
@@ -109,13 +107,13 @@ void SplitString::split(string some_str) {
 				else {
 					successfulFlag_ = 0;
 					throw ExceptionSplitString(numberOfLines_,
-						", не найдена 2 кавычка у названия, разбиение строки невозможно");
+						", 2 quotation marks not found, no line break possible");
 				}
 			}
 			else {
 				successfulFlag_ = 0;
 				throw ExceptionSplitString(numberOfLines_,
-					", название композиции должно быть задано в кавычках, разбиение строки невозможно");
+					", the name of the composition must be given in quotation marks, line breaking is not possible");
 
 			}
 		}
