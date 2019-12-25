@@ -245,7 +245,7 @@ void CompositionName::setNumberOfLines(int numer) {
 }
 
 const CompositionName & CompositionName::operator = (const CompositionName & ob) {
-	// проверка на самоприсваивание
+	// check for self-assignment
 	if (&ob == this)
 		return *this;
 	else {
