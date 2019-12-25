@@ -6,46 +6,40 @@ using namespace std;
 class AuthorName : public string
 {
 private:
-	//<Буква> :: = а| |я a| |z
+	// <Letter> :: = Р° || Р± a || z
 	bool isLetter(char** some_str);
 
-	//<Заглавная буква> :: = A || Я A || Z
+	// <Uppercase letter> :: = Рђ || РЇ A || Z
 	bool isCapitalLetter(char** some_str);
 
-	//<Слово> : : = <Буква>| |<Слово>
+	// <Word>:: = <Letter> | | <Word>
 	bool isWord(char** some_str);
 
-	//<ЗСлово> :: = <Заглавная буква> <Слово>
+	// <UWord> :: = <Uppercase letter> <Word>
 	bool isHeadWord(char** some_str);
 
-	//<Фамилия> :: = <ЗСлово> | <ЗСлово>’ - ’<ЗСлово>
+	// <Surname> :: = <UWord> | <UWord> вЂ™-вЂ™ <UWord>
 	bool isSername(char** some_str);
 
-	//<ФИО> :: = <Фамилия> ‘_’<Заглавная буква>’.’<Заглавная буква>’.’
-	//| <Фамилия> ‘_’<Заглавная буква>’.'
+	// <FULL NAME> :: = <Surname> вЂ_вЂ™ <Uppercase letter> вЂ™.вЂ™ <Uppercase letter> вЂ™.вЂ™
+	// | <Surname> вЂ_вЂ™ <Uppercase letter> вЂ™. '
 	bool isAuthorName(char** some_str);
 
-	//Преобразовать string в массив char 
+	// Convert string to char array
 	bool stringToCharName(string str);
 
 public:
 	string authorName_;
 
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 
-	//Конструктор
 	AuthorName();
-	//Деструктор
 	~AuthorName();
 
-	//Устанавливаем номер текущей строки
 	void setNumberOfLines(int numer);
 
-	//Установить значение поля
 	void setValue(string str);
 
-	//Перегрузка оператора = !!!
 	const AuthorName &operator = (const AuthorName &ob);
-	//Перегрузка оператора вывода !!!
 	friend ostream& operator << (ostream& out, AuthorName ob);
 };
