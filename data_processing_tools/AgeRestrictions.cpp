@@ -1,8 +1,8 @@
 #include "AgeRestrictions.h"
 #include "Exception.h"
 
-//БНФ возрастные ограничения
-//<Знак> :: = ‘+’
+// BPF age restrictions
+// <Sign> :: = вЂ+вЂ™
 bool AgeRestrictions::isSign(char ** some_str) {
 	if (**some_str == '+') {
 		(*some_str)++;
@@ -11,7 +11,7 @@ bool AgeRestrictions::isSign(char ** some_str) {
 	return false;
 }
 
-//<Цифра> :: = 0 || 9
+//<Digit> :: = 0 || 9
 bool AgeRestrictions::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
@@ -20,7 +20,7 @@ bool AgeRestrictions::isNumer(char ** some_str) {
 	return false;
 }
 
-//<Целое число> :: = <Цифра>| |<Число>
+// <Integer> :: = <Digit> | | <number>
 bool AgeRestrictions::isInteger(char ** some_str) {
 	if (isNumer(some_str)) {
 		if (**some_str == '_')
@@ -35,7 +35,7 @@ bool AgeRestrictions::isInteger(char ** some_str) {
 		return false;
 }
 
-//<Возрастные ограничения> :: = <Целое число>’_’<Знак>
+// <Age restrictions> :: = <Integer> вЂ™_вЂ™ <Sign>
 bool AgeRestrictions::isAgeRestriction(char ** some_str) {
 	if (isInteger(some_str)) {
 		if (**some_str == '_') {
@@ -53,8 +53,7 @@ bool AgeRestrictions::isAgeRestriction(char ** some_str) {
 		return false;
 }
 
-//Преобразовать string в массив char и проверить БНФ
-//!!!?
+// Convert string to char array and check bnf
 bool AgeRestrictions::stringToCharRestrictions(string str) {
 	int len = str.length() + 1;
 	char *copyStr = new char[len];
@@ -65,30 +64,27 @@ bool AgeRestrictions::stringToCharRestrictions(string str) {
 	return isAgeRestriction(pCopy);
 }
 
-//Конструктор без параметров
 AgeRestrictions::AgeRestrictions() :
 	ageRestrictions_(""),
 	numberOfLines_(0) {}
 
-//Деструктор
 AgeRestrictions::~AgeRestrictions() {
 }
 
-//Устанавливаем номер текущей строки
+// Set the current line number
 void AgeRestrictions::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//!!? вывод строки
-//Установить значение поля
+// Set the field value
 void AgeRestrictions::setValue(string str) {
 	try {
 		if (str.empty())
 			throw ExceptionAgeRestrictions(numberOfLines_,
-				", пустая строка, возрастные ограничения не заданы");
+				", ГЇГіГ±ГІГ Гї Г±ГІГ°Г®ГЄГ , ГўГ®Г§Г°Г Г±ГІГ­Г»ГҐ Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГї Г­ГҐ Г§Г Г¤Г Г­Г»");
 		else if (!stringToCharRestrictions(str))
 			throw ExceptionAgeRestrictions(numberOfLines_,
-				", Неверно заданы возрастные ограничения");
+				", ГЌГҐГўГҐГ°Г­Г® Г§Г Г¤Г Г­Г» ГўГ®Г§Г°Г Г±ГІГ­Г»ГҐ Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГї");
 		else
 			ageRestrictions_ = str;
 	}
@@ -97,9 +93,8 @@ void AgeRestrictions::setValue(string str) {
 	}
 }
 
-//Перегрузка оператора = !!!
 const AgeRestrictions & AgeRestrictions::operator=(const AgeRestrictions & ob) {
-	// проверка на самоприсваивание
+	// ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г±Г Г¬Г®ГЇГ°ГЁГ±ГўГ ГЁГўГ Г­ГЁГҐ
 	if (&ob == this) return *this;
 	else {
 		ageRestrictions_ = ob.ageRestrictions_;
@@ -107,7 +102,6 @@ const AgeRestrictions & AgeRestrictions::operator=(const AgeRestrictions & ob) {
 	return *this;
 }
 
-//Перегрузка оператора вывода !!!
 ostream & operator<<(ostream & out, AgeRestrictions ob) {
 	out << ob.ageRestrictions_;
 	return out;
