@@ -1,22 +1,22 @@
-#include "СompositionName.h"
+#include "CompositionName.h"
 #include "Exception.h"
 #include <iostream>
 using namespace std;
 
-//БНФ для Названия пьесы
-//Возвращает true если конец массива
-bool СompositionName::isEnd(char ** some_str) {
+// BPF for the Title of the play
+// Returns true if the end of the array
+bool CompositionName::isEnd(char ** some_str) {
 	if (**some_str == '\0') {
 		return true;
 	}
 	return false;
 }
 
-//<Знак> :: = ‘.’ |’,’|’-’|’:’|’;’|’!’|’&’|’?’|’№’
-bool СompositionName::isSign(char ** some_str) {
+//<Sign> :: = вЂ.вЂ™ |вЂ™,вЂ™|вЂ™-вЂ™|вЂ™:вЂ™|вЂ™;вЂ™|вЂ™!вЂ™|вЂ™&вЂ™|вЂ™?вЂ™|вЂ™В№вЂ™
+bool CompositionName::isSign(char ** some_str) {
 	if (**some_str == '.' || **some_str == ',' || **some_str == '-' || **some_str == ':'
 		|| **some_str == ';' || **some_str == '!' || **some_str == '&'
-		|| **some_str == '?' || **some_str == '№')
+		|| **some_str == '?' || **some_str == 'В№')
 	{
 		(*some_str)++;
 		return true;
@@ -24,8 +24,8 @@ bool СompositionName::isSign(char ** some_str) {
 	return false;
 }
 
-//<Цифра> :: = 0||9
-bool СompositionName::isNumer(char ** some_str) {
+//<Digit> :: = 0||9
+bool CompositionName::isNumer(char ** some_str) {
 	if (**some_str >= '0' && **some_str <= '9') {
 		(*some_str)++;
 		return true;
@@ -33,8 +33,8 @@ bool СompositionName::isNumer(char ** some_str) {
 	return false;
 }
 
-//<Число> :: = <Цифра>| |<Число>
-bool СompositionName::isInteger(char ** some_str) {
+// <Number> :: = <Digit> | | <number>
+bool CompositionName::isInteger(char ** some_str) {
 	if (**some_str == ' ') {
 		return true;
 	}
@@ -47,9 +47,9 @@ bool СompositionName::isInteger(char ** some_str) {
 	return false;
 }
 
-//<Заглавная буква> :: = A || Я A || Z
-bool СompositionName::isCapitalLetter(char ** some_str) {
-	if ((**some_str >= 'А' && **some_str <= 'Я')
+// <Uppercase letter> :: = Рђ || РЇ A || Z
+bool CompositionName::isCapitalLetter(char ** some_str) {
+	if ((**some_str >= 'ГЂ' && **some_str <= 'Гџ')
 		|| (**some_str >= 'A' && **some_str <= 'Z'))
 	{
 		(*some_str)++;
@@ -58,10 +58,10 @@ bool СompositionName::isCapitalLetter(char ** some_str) {
 	return false;
 }
 
-//<Буква> :: = а| |я a| |z
-bool СompositionName::isLetter(char ** some_str) {
+// <Letter> :: = Р° || СЏ a || z
+bool CompositionName::isLetter(char ** some_str) {
 	if ((**some_str >= 'a' && **some_str <= 'z')
-		|| (**some_str >= 'а' && **some_str <= 'я'))
+		|| (**some_str >= 'Г ' && **some_str <= 'Гї'))
 	{
 		(*some_str)++;
 		return true;
@@ -69,8 +69,8 @@ bool СompositionName::isLetter(char ** some_str) {
 	return false;
 }
 
-//<Слово> : := <Буква>| |<Слово>
-bool СompositionName::isWord(char ** some_str) {
+// <Word>:: = <Letter> | | <Word>
+bool CompositionName::isWord(char ** some_str) {
 	if (**some_str == ' ') {
 		return true;
 	}
@@ -82,8 +82,8 @@ bool СompositionName::isWord(char ** some_str) {
 	return false;
 }
 
-//<ЗСлово> :: = <Заглавная буква> <Слово>
-bool СompositionName::isHeadWord(char** some_str) {
+// <UWord> :: = <Uppercase letter> <Word>
+bool CompositionName::isHeadWord(char** some_str) {
 	if (isCapitalLetter(some_str)) {
 		//cout << "test 0" << endl;
 		if (isWord(some_str)) {
@@ -97,10 +97,10 @@ bool СompositionName::isHeadWord(char** some_str) {
 		return false;
 }
 
-//<Предложение> :: = <ЗСлово> | <ЗСлово> ‘_’<Знак> | <ЗСлово> ‘_’<Знак> ‘_’<Слово>
-//| <ЗСлово>‘_’<Слово>| <Число>| <Число> ‘_’<Слово> | <Число> ‘_’<Знак>
+// <Offer> :: = <UWord> | <UWord> вЂ_вЂ™ <Sign> | <UWord> вЂ_вЂ™ <Sign> вЂ_вЂ™ <Word>
+// | <UWord> вЂ_вЂ™ <Word> | <Number> | <Number> вЂ_вЂ™ <Word> | <Number> вЂ_вЂ™ <Sign>
 
-bool СompositionName::isSentence(char ** some_str) {
+bool Г‘ompositionName::isSentence(char ** some_str) {
 	if (isInteger(some_str)) {
 		if (**some_str == ' ') {
 			(*some_str)++;
@@ -172,9 +172,9 @@ bool СompositionName::isSentence(char ** some_str) {
 
 }
 
-//<Название пьесы> :: = ‘»’<Предложение>’»’| ‘»’<Предложение> ‘_’<Число>’»’
+// <Name of the play> :: = вЂ" вЂ™<Offer>вЂ™ "вЂ™ | вЂВ» вЂ™<Offer>вЂ _ вЂ™<Number>вЂ™ В»вЂ™
 
-bool СompositionName::isCompositionName(char** some_str) {
+bool CompositionName::isCompositionName(char** some_str) {
 	if (isSentence(some_str)) {
 		if (**some_str == ' ') {
 			(*some_str)++;
@@ -198,8 +198,7 @@ bool СompositionName::isCompositionName(char** some_str) {
 		return false;
 }
 
-//Преобразовать string в массив char и проверить БНФ
-bool СompositionName::stringToCharComposition(string str) {
+bool CompositionName::stringToCharComposition(string str) {
 	int len = str.length() + 1;
 	char *copyStr = new char[len];
 	strcpy_s(copyStr, len, str.c_str());
@@ -209,17 +208,15 @@ bool СompositionName::stringToCharComposition(string str) {
 	return isCompositionName(pCopy);
 }
 
-//Конструктор без параметров
-СompositionName::СompositionName() :
+CompositionName::CompositionName() :
 	compositionName_(""),
 	numberOfLines_(0) {}
 
-//Деструктор
-СompositionName::~СompositionName() {
+CompositionName::~CompositionName() {
 }
 
-//Установить значение поля
-void СompositionName::setValue(string str) {
+// Set the field value
+void CompositionName::setValue(string str) {
 	try {
 		string copyStr = str;
 		copyStr.erase(copyStr.begin());
@@ -227,13 +224,13 @@ void СompositionName::setValue(string str) {
 
 		if (copyStr.empty())
 			throw ExceptionCompositionName(numberOfLines_,
-				", пустая строка, название не задано");
+				", empty string, no name specified");
 		else if (str[0] != '"' && str[str.length() - 1] != '"')
 			throw ExceptionCompositionName(numberOfLines_,
-				", название композиции должно быть задано в кавычках");
+				", the name of the composition must be given in quotation marks");
 		else if (!stringToCharComposition(copyStr))
 			throw ExceptionCompositionName(numberOfLines_,
-				", Неверно задано название композиции");
+				", the title of the composition is incorrect");
 		else {
 			compositionName_ = str;
 		}
@@ -242,14 +239,13 @@ void СompositionName::setValue(string str) {
 		cerr << ex.getMsgLines() << ex.getNumberOfLines() << ex.getErrorMsg() << endl;
 	}
 }
-//Устанавливаем номер текущей строки
-void СompositionName::setNumberOfLines(int numer) {
+// Set the current line number
+void CompositionName::setNumberOfLines(int numer) {
 	numberOfLines_ = numer;
 }
 
-//Перегрузка оператора =  !!!
-const СompositionName & СompositionName::operator = (const СompositionName & ob) {
-	// проверка на самоприсваивание
+const CompositionName & CompositionName::operator = (const CompositionName & ob) {
+	// РїСЂРѕРІРµСЂРєР° РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
 	if (&ob == this)
 		return *this;
 	else {
@@ -258,8 +254,7 @@ const СompositionName & СompositionName::operator = (const СompositionName & ob)
 	return *this;
 }
 
-//Перегрузка оператора вывода !!!
-ostream & operator<<(ostream & out, СompositionName ob) {
+ostream & operator<<(ostream & out, CompositionName ob) {
 	out << ob.compositionName_;
 	return out;
 }
