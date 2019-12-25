@@ -6,40 +6,36 @@ using namespace std;
 class AgeRestrictions : public string
 {
 private:
-	//БНФ
-	//<Знак> :: = ‘+’
+	// BPF
+	// <Sign> :: = вЂ+вЂ™
 	bool isSign(char ** some_str);
 
-	//<Цифра> :: = 0 || 9
+	// <Digit> :: = 0 || 9
 	bool isNumer(char ** some_str);
 
-	//<Целое число> :: = <Цифра>| |<Число>
+	// <Integer> :: = <Digit> | | <number>
 	bool isInteger(char ** some_str);
 
-	//<Возрастные ограничения> :: = <Целое число>’_’<Знак>
+	// <Age restrictions> :: = <Integer> вЂ™_вЂ™ <Sign>
 	bool isAgeRestriction(char ** some_str);
 
-	//Преобразовать string в массив char и проверить БНФ
+	// Convert string to char array and check bnf
 	bool stringToCharRestrictions(string str);
 
 public:
 	string ageRestrictions_;
 
-	int numberOfLines_; // текущая строка в файле
+	int numberOfLines_; // current line in file
 
-	//Конструктор без параметров
 	AgeRestrictions();
-	//Деструктор
 	~AgeRestrictions();
 
-	//Устанавливаем номер текущей строки
+	// Set the current line number
 	void setNumberOfLines(int numer);
 
-	//Установить значение поля
+	// Set the field value
 	void setValue(string str);
 
-	//Перегрузка оператора = !!!
 	const AgeRestrictions &operator = (const AgeRestrictions &ob);
-	//Перегрузка оператора вывода !!!
 	friend ostream& operator << (ostream& out, AgeRestrictions ob);
 };
