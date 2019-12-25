@@ -17,19 +17,19 @@ int main() {
 
 	try {
 		string fileName;
-		cout << "Введите название файла " << endl;
+		cout << "Enter file name" << endl;
 		getline(cin, fileName);
 
 		ifstream fileIn(fileName);
 
 		fileIn.seekg(0, ios::end);
-		int fileSize = fileIn.tellg();//для проверки, пустой ли файл
+		int fileSize = fileIn.tellg();// to check if the file is empty
 		fileIn.seekg(0);
 
 		if (!fileIn.is_open())
-			throw ExceptionFile("Файл не найден. Путь и/или имя указаны неверно");
+			throw ExceptionFile("File not found. Path and / or name is incorrect");
 		else if (fileSize == 0) {
-			throw ExceptionFile("Пустой файл");
+			throw ExceptionFile("Empty file");
 		}
 		else {
 			Playbook list;
@@ -38,10 +38,10 @@ int main() {
 				try {
 					if (str.empty()) {
 						throw ExceptionFile(++list.numberOfLines_,
-							", строка пуста");
+							", line is empty");
 					}
 					else {
-						list.addSpectacle(str);//добавляем пьесу
+						list.addSpectacle(str); // add a play
 					}
 				}
 				catch (ExceptionFile &ex) {
@@ -50,17 +50,17 @@ int main() {
 			}
 			fileIn.close();
 
-			list.insertSort(); //сортируем элементы массива
-			list.mostPopular(); //Создаем вектор с максимальным рейтингов внутри класса
-			list.genreList(); // создаем вектора с жанрами и рейтингом без повтора
-			list.setMaxLength(); //определяем максимальную длину каждого поля
+			list.insertSort(); // sort the elements of the array
+			list.mostPopular(); // Create a vector with maximum ratings inside the class
+			list.genreList(); // create vectors with genres and rating without repetition
+			list.setMaxLength();// determine the maximum length of each field
 
-			//Вывод в таблицу 
+			// Output to the table 
 			ofstream{ "result.txt" };
 			ofstream fileOut("result.txt");
 
 			if (list.mostPopularPlays_.size() != 0) {
-				fileOut << "Самая популярная/ые пьеса/ы" << endl;
+				fileOut << "РЎР°РјР°СЏ РїРѕРїСѓР»СЏСЂРЅР°СЏ/С‹Рµ РїСЊРµСЃР°/С‹" << endl;
 
 				fileOut << "+";
 				for (int i = 0; i < list.maxComp_; i++)
@@ -71,11 +71,11 @@ int main() {
 					fileOut << "-";
 				fileOut << '+' << endl;
 
-				fileOut << "|Название";
+				fileOut << "|РќР°Р·РІР°РЅРёРµ";
 				for (int i = 0; i < list.maxComp_ - 8; i++)
 					fileOut << " ";
 
-				fileOut << "|Рейтинг|" << endl;
+				fileOut << "|Р РµР№С‚РёРЅРі|" << endl;
 
 				fileOut << "+";
 				for (int i = 0; i < list.maxComp_; i++)
@@ -107,7 +107,7 @@ int main() {
 			}
 
 			if (list.count_ != 0) {
-				fileOut << endl << "Отсортированные пьесы" << endl;
+				fileOut << endl << "РћС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РїСЊРµСЃС‹" << endl;
 				fileOut << "+";
 				for (int i = 0; i < list.maxComp_; i++)
 					fileOut << "-";
@@ -129,19 +129,19 @@ int main() {
 					fileOut << "-";
 				fileOut << '+' << endl;
 
-				fileOut << "|Название";
+				fileOut << "|РќР°Р·РІР°РЅРёРµ";
 				for (int i = 0; i < list.maxComp_ - 8; i++)
 					fileOut << " ";
 
-				fileOut << "|Автор";
+				fileOut << "|РђРІС‚РѕСЂ";
 				for (int i = 0; i < list.maxAuth_ - 5; i++)
 					fileOut << " ";
 
-				fileOut << "|Жанр";
+				fileOut << "|Р–Р°РЅСЂ";
 				for (int i = 0; i < list.maxGen_ - 4; i++)
 					fileOut << " ";
 
-				fileOut << "|Рейтинг|Ограничения|" << endl;
+				fileOut << "|Р РµР№С‚РёРЅРі|РћРіСЂР°РЅРёС‡РµРЅРёСЏ|" << endl;
 
 				fileOut << "+";
 				for (int i = 0; i < list.maxComp_; i++)
@@ -213,7 +213,7 @@ int main() {
 			}
 
 			if (list.count_ != 0) {
-				fileOut << endl << "Список жанров и средняя зрительская оценка" << endl;
+				fileOut << endl << "РЎРїРёСЃРѕРє Р¶Р°РЅСЂРѕРІ Рё СЃСЂРµРґРЅСЏСЏ Р·СЂРёС‚РµР»СЊСЃРєР°СЏ РѕС†РµРЅРєР°" << endl;
 
 				fileOut << "+";
 				for (int i = 0; i < list.maxGen_; i++)
@@ -224,11 +224,11 @@ int main() {
 					fileOut << "-";
 				fileOut << '+' << endl;
 
-				fileOut << "|Жанр";
+				fileOut << "|Р–Р°РЅСЂ";
 				for (int i = 0; i < list.maxGen_ - 4; i++)
 					fileOut << " ";
 
-				fileOut << "|Рейтинг|" << endl;
+				fileOut << "|Р РµР№С‚РёРЅРі|" << endl;
 
 				fileOut << "+";
 				for (int i = 0; i < list.maxGen_; i++)
@@ -259,7 +259,7 @@ int main() {
 
 				}
 
-				// тест перегруженных операций
+				// test overloaded operations
 				//Spectacle ob1, ob2;
 				//ob1.audienceRating_.audienceRating_ = 8;
 				//ob2.audienceRating_.audienceRating_ = 8;
@@ -278,7 +278,7 @@ int main() {
 			}
 			fileOut.close();
 
-			cout << "Новый файл: " << endl;
+			cout << "РќРѕРІС‹Р№ С„Р°Р№Р»: " << endl;
 			fileIn.open("result.txt");
 			while (getline(fileIn, str)) {
 				cout << str << endl;
