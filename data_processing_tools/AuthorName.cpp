@@ -126,10 +126,10 @@ void AuthorName::setValue(string str) {
 	try {
 		if (str.empty())
 			throw ExceptionAuthorName(numberOfLines_,
-				", ïóñòàÿ ñòðîêà, èìÿ àâòîðà íå çàäàíî");
+				", empty string, no author name specified");
 		else if (!stringToCharName(str))
 			throw ExceptionAuthorName(numberOfLines_,
-				", Íåâåðíî çàäàíî èìÿ àâòîðà");
+				"The name of the author is incorrect.");
 		else
 			authorName_ = str;
 	}
